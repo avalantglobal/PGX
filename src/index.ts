@@ -1,1 +1,1 @@
-import "./chartjs.provider.ts";
+import "./demo.element";

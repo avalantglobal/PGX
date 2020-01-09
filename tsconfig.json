@@ -1,0 +1,17 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "target": "es5",
+      "module": "esnext",
+      "moduleResolution": "node",
+      "lib": ["esnext.array", "esnext", "es2017", "dom"],
+      "outDir": "./build",
+      "allowSyntheticDefaultImports": true,
+      // Only necessary because @types/uglify-js can't find types for source-map
+      "skipLibCheck": true,
+      "experimentalDecorators": true,
+      "declaration": false
+    },
+    "include": ["src/**/*.ts", "index.design.ts"]
+  }
+  

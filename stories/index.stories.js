@@ -27,4 +27,7 @@ stories.add("demo-element", () => {
   const textComponent = text("Text Component", "PGD");
   return `<demo-element text="${textComponent}"></demo-element>`;
 });
+stories.add("qr-code", () => {
+  return `<qr-code-element witdh='400'></qr-code-element>`;
+});
 

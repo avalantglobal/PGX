@@ -1,1 +1,2 @@
-import "./demo.element";
+// import "./demo.element";
+import "./qr-code.element";

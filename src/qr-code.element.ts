@@ -5,24 +5,37 @@ class QRCodeElement extends LitElement {
   @property({ type: String }) content: "";
   @property({ type: String }) width = 250;
   @property({ type: String }) logo = "";
-  @property({ type: String }) errCorrectionLevel = "Q";
-  @property({ type: String }) colorDark = "#000000ff";
-  @property({ type: String }) colorLight = "#ffffff";
+  @property({ type: String, attribute: "correction-level" }) errCorrectionLevel = "Q";
+  @property({ type: String, attribute: "foreground-color" }) colorDark = "#000000ff";
+  @property({ type: String, attribute: "background-color" }) colorLight = "#ffffff";
+  @property({ type: String, attribute: "url" }) url = "https://oneweb.tech/";
+  @property({ type: String, attribute: "pg-data" }) pgData;
+  @property({
+    type: Object,
+    hasChanged(newVal, oldVal) {
+      if (newVal != oldVal) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  })
+  data: any;
 
   getInspector() {
     return {
-      title: "Demo Component",
+      title: "QRcode",
       sidebar: {
         action: {
           eventTypes: []
         },
         style: {
           text: {
-            font: true,
-            textStyle: true,
+            font: false,
+            textStyle: false,
             paragraph: false,
-            alignment: true,
-            color: true
+            alignment: false,
+            color: false
           },
           boxSize: true,
           background: {
@@ -41,16 +54,58 @@ class QRCodeElement extends LitElement {
           boxShadow: true
         },
         specific: {
-          title: "Demo Component",
+          title: "QRCode",
           sections: [
             {
-              title: "Heading",
+              title: "Data",
               forms: [
                 {
                   type: "string",
-                  label: "Text Component",
-                  attribute: "text",
+                  label: "Content",
+                  attribute: "content",
+                  layout: "V",
+                  placeholder: "https://oneweb.tech/"
+                },
+                {
+                  type: "option",
+                  label: "Error Correction Level",
+                  attribute: "correction-level",
+                  layout: "V",
+                  options: [
+                    {
+                      label: "Low",
+                      value: "L"
+                    },
+                    {
+                      label: "Medium",
+                      value: "M"
+                    },
+                    {
+                      label: "Quartile",
+                      value: "Q"
+                    },
+                    {
+                      label: "High",
+                      value: "H"
+                    }
+                  ]
+                },
+                {
+                  type: "color",
+                  label: "Foreground Color",
+                  attribute: "foreground-color",
                   layout: "V"
+                },
+                {
+                  type: "color",
+                  label: "Background Color",
+                  attribute: "background-color",
+                  layout: "V"
+                },
+                {
+                  type: "store",
+                  label: "URL",
+                  attribute: "url"
                 }
               ]
             }
@@ -85,6 +140,9 @@ class QRCodeElement extends LitElement {
   }
 
   updated() {
+    if(this.data.length > 0){
+      this.content = this.data[0][this.url];
+    }
     this.generateQRCode();
   }
 

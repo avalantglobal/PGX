@@ -2,7 +2,7 @@ import { document, console } from "global";
 import { storiesOf } from "@storybook/polymer";
 import { withKnobs, text, number, select } from "@storybook/addon-knobs";
 
-let stories = storiesOf("PGComponent", module);
+let stories = storiesOf("PGDComponent", module);
 stories.addDecorator(withKnobs);
 stories.add("heading", () => {
   const name = text("Name", "ONEWEB");
@@ -23,16 +23,8 @@ stories.add("button", () => {
   button.addEventListener("click", e => console.log(e));
   return button;
 });
-stories.add("QRCode", () => {
-  const width = number("Width", 250);
-  const content = text("Content", "PageDesigner");
-  const optionList = {
-    Low: "L",
-    Medium: "M",
-    Quartile: "Q",
-    High: "H",
-  };
-  const defaultValue = "L";
-  const level = select("Error lv.", optionList, defaultValue);
-  return `<pg-qrcode width="${width}" content="${content}" errcorrectionlevel="${level}"></pg-qrcode>`;
+stories.add("demo-element", () => {
+  const textComponent = text("Text Component", "PGD");
+  return `<demo-element text="${textComponent}"></demo-element>`;
 });
+

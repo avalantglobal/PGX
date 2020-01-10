@@ -1,4 +1,4 @@
-require("../libs");
+require("../build/index.js");
 import { configure, addDecorator } from "@storybook/polymer";
 import { setOptions } from "@storybook/addon-options";
 import "@storybook/addon-console";

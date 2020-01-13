@@ -133,6 +133,13 @@ class QRCodeElement extends LitElement {
             }
           ]
         }
+      },
+      toolbar: {
+        move: true,
+        clone: true,
+        selectParent: true,
+        connectToData: true,
+        remove: true
       }
     }
   }

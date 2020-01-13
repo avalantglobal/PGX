@@ -2,14 +2,17 @@ import { LitElement, html, property } from "lit-element";
 import QrCodeWithLogo from "qr-code-with-logo";
 
 class QRCodeElement extends LitElement {
+  @property({ type: String }) pgxId = "com.ava.qrcode";
   @property({ type: String }) content: "";
   @property({ type: String }) width = 250;
-  @property({ type: String }) logo = "";
   @property({ type: String, attribute: "correction-level" }) errCorrectionLevel = "Q";
   @property({ type: String, attribute: "foreground-color" }) colorDark = "#000000ff";
   @property({ type: String, attribute: "background-color" }) colorLight = "#ffffff";
   @property({ type: String, attribute: "url" }) url = "https://oneweb.tech/";
   @property({ type: String, attribute: "pg-data" }) pgData;
+  @property({ type: String, attribute: "type-content" }) typeContent = "link";
+  @property({ type: String, attribute: "link" }) link = "https://oneweb.tech/";
+  @property({ type: String, attribute: "data-field" }) dataField;
   @property({
     type: Object,
     hasChanged(newVal, oldVal) {
@@ -60,17 +63,39 @@ class QRCodeElement extends LitElement {
               title: "Data",
               forms: [
                 {
-                  type: "string",
+                  type: "dependency",
                   label: "Content",
-                  attribute: "content",
-                  layout: "V",
-                  placeholder: "https://oneweb.tech/"
+                  attribute: "type-content",
+                  element: "select",
+                  defaultValue: "link",
+                  values: {
+                    "link": {
+                      label: "Link",
+                      forms: [
+                        {
+                          type: "string",
+                          attribute: "link",
+                          placeholder: "https://oneweb.tech/"
+                        }
+                      ]
+                    },
+                    "data": {
+                      label: "Data",
+                      forms: [
+                        {
+                          type: "store",
+                          attribute: "data-field"
+                        }
+                      ]
+                    }
+                  }
                 },
                 {
                   type: "option",
                   label: "Error Correction Level",
                   attribute: "correction-level",
                   layout: "V",
+                  defaultValue: "L",
                   options: [
                     {
                       label: "Low",
@@ -94,18 +119,15 @@ class QRCodeElement extends LitElement {
                   type: "color",
                   label: "Foreground Color",
                   attribute: "foreground-color",
-                  layout: "V"
+                  layout: "V",
+                  defaultValue: "#000000ff"
                 },
                 {
                   type: "color",
                   label: "Background Color",
                   attribute: "background-color",
-                  layout: "V"
-                },
-                {
-                  type: "store",
-                  label: "URL",
-                  attribute: "url"
+                  layout: "V",
+                  defaultValue: "#ffffff"
                 }
               ]
             }
@@ -140,9 +162,6 @@ class QRCodeElement extends LitElement {
   }
 
   updated() {
-    if(this.data.length > 0){
-      this.content = this.data[0][this.url];
-    }
     this.generateQRCode();
   }
 
@@ -160,14 +179,10 @@ class QRCodeElement extends LitElement {
         }
       }
     };
-    if (this.logo) {
-      qrCodeData["logo"] = {
-        src: this.logo,
-        borderSize: 0
-      };
-    }
-    if (this.content) {
-      qrCodeData.content = this.content;
+    if (this.typeContent === "data" && this.data && this.data.length > 0) {
+      qrCodeData.content = this.data[0][this.dataField];
+    } else {
+      qrCodeData.content = this.link;
     }
 
     QrCodeWithLogo.toCanvas(qrCodeData);

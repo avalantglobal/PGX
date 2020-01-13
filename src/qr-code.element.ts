@@ -8,8 +8,6 @@ class QRCodeElement extends LitElement {
   @property({ type: String, attribute: "correction-level" }) errCorrectionLevel = "Q";
   @property({ type: String, attribute: "foreground-color" }) colorDark = "#000000ff";
   @property({ type: String, attribute: "background-color" }) colorLight = "#ffffff";
-  @property({ type: String, attribute: "url" }) url = "https://oneweb.tech/";
-  @property({ type: String, attribute: "pg-data" }) pgData;
   @property({ type: String, attribute: "type-content" }) typeContent = "link";
   @property({ type: String, attribute: "link" }) link = "https://oneweb.tech/";
   @property({ type: String, attribute: "data-field" }) dataField;

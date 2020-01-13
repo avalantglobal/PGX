@@ -11,57 +11,64 @@ class PGDDemoElement extends LitElement {
    * that uses LitElement as a base class.
    */
 
-   getInspector(){
-       return {
-           title: "Demo Component",
-           sidebar: {
-               action: {
-                   eventTypes: []
-               },
-               style: {
-                text: {
-                  font: true,
-                  textStyle: true,
-                  paragraph: false,
-                  alignment: true,
-                  color: true
-                },
-                boxSize: true,
-                background: {
-                  image: false,
-                  color: false
-                },
-                border: {
-                  size: true,
-                  radius: true
-                },
-                appearance: {
-                  opacity: true,
-                  padding: true,
-                  margin: true
-                },
-                boxShadow: true
-              },
-              specific: {
-                  title: "Demo Component",
-                  sections: [
-                      {
-                          title: "Heading",
-                          forms: [
-                              {
-                                type: "string",
-                                label: "Text Component",
-                                attribute: "text",
-                                layout: "V"
-                              }
-                          ]
-                      }
-                  ]
-              }
-           }
-       }
-   }
-  
+  getInspector() {
+    return {
+      title: "Demo Component",
+      sidebar: {
+        action: {
+          eventTypes: []
+        },
+        style: {
+          text: {
+            font: true,
+            textStyle: true,
+            paragraph: false,
+            alignment: true,
+            color: true
+          },
+          boxSize: true,
+          background: {
+            image: false,
+            color: false
+          },
+          border: {
+            size: true,
+            radius: true
+          },
+          appearance: {
+            opacity: true,
+            padding: true,
+            margin: true
+          },
+          boxShadow: true
+        },
+        specific: {
+          title: "Demo Component",
+          sections: [
+            {
+              title: "Heading",
+              forms: [
+                {
+                  type: "string",
+                  label: "Text Component",
+                  attribute: "text",
+                  layout: "V"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      toolbar: {
+        move: true,
+        clone: true,
+        selectParent: true,
+        connectToData: true,
+        remove: true
+      }
+    }
+  }
+
   render() {
     /**
      * `render` must return a lit-html `TemplateResult`.
@@ -85,7 +92,7 @@ class PGDDemoElement extends LitElement {
         </div>
     `;
   }
-  firstUpdated() {}
+  firstUpdated() { }
 }
 // Register the new element with the browser.
 customElements.define("demo-element", PGDDemoElement);

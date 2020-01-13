@@ -228,10 +228,10 @@ interface PGDElement {
   pgxId: string;     
   
   /**
-  * (attribute: "pg-store")
+  * (attribute: "pg-data")
   * Use when connect with microflow.
   */
-  pgStore: string; 
+  pgData: string; 
   
   /**
   * Result from microflow.

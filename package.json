@@ -8,7 +8,7 @@
   "main": "index.js",
   "author": "PGD",
   "license": "avalant",
-  "logo": "./chartjs-logo.png",
+  "logo": "./icons.png",
   "include": [],
   "platforms": [
     "web",

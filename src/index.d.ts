@@ -81,7 +81,7 @@ declare module chartAPI {
 }
 
 type PGXDataTypes = "string" | "number" | "option" | "boolean" | "color" | 
-  "dependency" | "tags" | "store" | "icon";
+  "dependency" | "radio-button" | "store" | "icon" | "array";
 type PGXExtraDataTypes = PGXDataTypes | "arrays";
 type PGXElement = "select" | "radio-button";
 interface ResponseValidate {

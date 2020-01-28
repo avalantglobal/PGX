@@ -40,6 +40,7 @@
     "fs-extra": "^7.0.1",
     "gulp": "^4.0.0",
     "gulp-exec": "^3.0.2",
+    "moment": "^2.24.0",
     "ncp": "^2.0.0",
     "rollup": "^1.6.0",
     "rollup-plugin-babel": "^4.3.2",

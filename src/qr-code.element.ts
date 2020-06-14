@@ -4,7 +4,7 @@ import QrCodeWithLogo from "qr-code-with-logo";
 class QRCodeElement extends LitElement {
   @property({ type: String }) pgxId = "com.ava.qrcode";
   @property({ type: String }) content: "";
-  @property({ type: String }) width = 250;
+  @property({ type: String }) width = 150;
   @property({ type: String, attribute: "correction-level" }) errCorrectionLevel = "Q";
   @property({ type: String, attribute: "foreground-color" }) colorDark = "#000000ff";
   @property({ type: String, attribute: "background-color" }) colorLight = "#ffffff";

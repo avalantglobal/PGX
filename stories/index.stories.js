@@ -13,14 +13,14 @@ stories.add("button", () => {
   const optionList = {
     button: "button",
     submit: "submit",
-    reset: "reset"
+    reset: "reset",
   };
   const defaultValue = "button";
   const btnType = select(label, optionList, defaultValue);
   const button = document.createElement("button");
   button.type = btnType;
   button.innerText = "😀 Hello";
-  button.addEventListener("click", e => console.log(e));
+  button.addEventListener("click", (e) => console.log(e));
   return button;
 });
 stories.add("demo-element", () => {
@@ -28,6 +28,13 @@ stories.add("demo-element", () => {
   return `<demo-element text="${textComponent}"></demo-element>`;
 });
 stories.add("qr-code", () => {
-  return `<qr-code-element witdh='400'></qr-code-element>`;
+  const width = text("Width", "400");
+  const options = {
+    Low: "L",
+    Medium: "M",
+    Quartile: "Q",
+    High: "H",
+  };
+  const correction = select("CorrectionLevel", options, "Medium");
+  return `<qr-code-element width=${width} correction-level=${correction}></qr-code-element>`;
 });
-

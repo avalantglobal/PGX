@@ -1,4 +1,3 @@
-const commander = require("commander");
 const rollup = require("rollup");
 const resolve = require("rollup-plugin-node-resolve");
 const commonjs = require("rollup-plugin-commonjs");
@@ -13,13 +12,14 @@ const JSZip = require("jszip");
 const base64 = require("./base64");
 const builtins = require("rollup-plugin-node-builtins");
 const globals = require("rollup-plugin-node-globals");
+const moment = require("moment");
 
 const isDev = process.env.NODE_ENV !== "production";
 const isMIN = process.env.MIN;
 const isRumtime = process.env.RUNTIME;
 
 function removeBuildFolder() {
-  rimraf("build", function(err) {});
+  rimraf("build", function (err) { });
 }
 
 function processPackageJson() {
@@ -63,19 +63,27 @@ function processPackageJson() {
 function processBuildPGX() {
   if (process.argv.indexOf("--package") > -1) {
     var zip = new JSZip();
-    let fileList = fs.readdirSync(path.join(__dirname, "../build/"), {
-      encoding: "utf8"
-    });
+    let fileList = fs.readdirSync(path.join(__dirname, "../build/"), { encoding: "utf8" });
+    
     fileList.forEach(item => {
       console.log("Add file to zip:", item);
       zip.file(item, fs.readFileSync(path.join(__dirname, "../build/", item)));
     });
     fs.mkdirsSync(path.join(__dirname, "../dist/"));
     let stream = zip.generateNodeStream({ type: "nodebuffer" });
+
+    let buildNo = moment().format("YYYYMMDD.hhmm");
+    let outputWriteStream = [packg.displayName, "v" + (packg.version || ''), "(" + buildNo + ")"].join("-") + ".pgx";
     let wSteam = fs.createWriteStream(
-      path.join(__dirname, "../dist/provider.pgx")
+      path.join(__dirname, "../dist/" + outputWriteStream)
     );
     stream.pipe(wSteam);
+
+    packg.buildNo = buildNo;
+    console.log(`Exported :`, outputWriteStream);
+    console.log(`buildNo :`, buildNo);
+    fs.writeFileSync(path.join(__dirname, "../package.json"), JSON.stringify(packg, null, 2), "utf8");
+
   }
 }
 // see below for details on the options

@@ -62,7 +62,7 @@
     "@storybook/polymer": "^5.1.7",
     "@types/chart.js": "^2.7.53",
     "chalk": "^2.4.2",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "commander": "^2.20.0",
     "commonjs": "^0.0.1",
     "jszip": "^3.2.1",

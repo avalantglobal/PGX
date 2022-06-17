@@ -69,11 +69,12 @@
     "lit-element": "^2.0.0-rc.2",
     "polymer-webpack-loader": "^2.0.3",
     "qr-code-with-logo": "^1.1.0",
-    "regenerator-runtime": "^0.13.2",
+    "regenerator-runtime": "^0.13.9",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-typescript": "^1.0.0",
     "serve-handler": "^5.0.8",
     "typescript": "^3.3.3"
-  }
+  },
+  "buildNo": "20220617.1058"
 }

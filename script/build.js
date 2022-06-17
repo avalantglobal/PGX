@@ -16,10 +16,9 @@ const moment = require("moment");
 
 const isDev = process.env.NODE_ENV !== "production";
 const isMIN = process.env.MIN;
-const isRumtime = process.env.RUNTIME;
 
 function removeBuildFolder() {
-  rimraf("build", function (err) { });
+  rimraf("build", function(err) {});
 }
 
 function processPackageJson() {
@@ -36,10 +35,10 @@ function processPackageJson() {
     "logo",
     "include",
     "platforms",
-    "templates"
+    "templates",
   ];
   const pgxPackage = {};
-  requiredField.forEach(fieldName => {
+  requiredField.forEach((fieldName) => {
     let fieldVal = packg[fieldName];
     if (fieldName === "logo") {
       let logoPath = path.resolve(fieldVal);
@@ -63,9 +62,11 @@ function processPackageJson() {
 function processBuildPGX() {
   if (process.argv.indexOf("--package") > -1) {
     var zip = new JSZip();
-    let fileList = fs.readdirSync(path.join(__dirname, "../build/"), { encoding: "utf8" });
-    
-    fileList.forEach(item => {
+    let fileList = fs.readdirSync(path.join(__dirname, "../build/"), {
+      encoding: "utf8",
+    });
+
+    fileList.forEach((item) => {
       console.log("Add file to zip:", item);
       zip.file(item, fs.readFileSync(path.join(__dirname, "../build/", item)));
     });
@@ -73,7 +74,12 @@ function processBuildPGX() {
     let stream = zip.generateNodeStream({ type: "nodebuffer" });
 
     let buildNo = moment().format("YYYYMMDD.hhmm");
-    let outputWriteStream = [packg.displayName, "v" + (packg.version || ''), "(" + buildNo + ")"].join("-") + ".pgx";
+    let outputWriteStream =
+      [
+        packg.displayName,
+        "v" + (packg.version || ""),
+        "(" + buildNo + ")",
+      ].join("-") + ".pgx";
     let wSteam = fs.createWriteStream(
       path.join(__dirname, "../dist/" + outputWriteStream)
     );
@@ -82,13 +88,16 @@ function processBuildPGX() {
     packg.buildNo = buildNo;
     console.log(`Exported :`, outputWriteStream);
     console.log(`buildNo :`, buildNo);
-    fs.writeFileSync(path.join(__dirname, "../package.json"), JSON.stringify(packg, null, 2), "utf8");
-
+    fs.writeFileSync(
+      path.join(__dirname, "../package.json"),
+      JSON.stringify(packg, null, 2),
+      "utf8"
+    );
   }
 }
 // see below for details on the options
 const inputOptions = {
-  input: [isRumtime ? "src/index.runtime.ts" : "src/index.ts"],
+  input: ["src/index.ts"],
   plugins: [
     builtins(),
     globals(),
@@ -101,20 +110,20 @@ const inputOptions = {
       // if true then uses of `global` won't be dealt with by this plugin
       ignoreGlobal: true, // Default: false
       // if false then skip sourceMap generation for CommonJS modules
-      sourceMap: true // Default: true
+      sourceMap: true, // Default: true
     }),
     rollupTypescript(),
     babel({
       exclude: "node_modules/**",
-      extensions: [".js"]
+      extensions: [".js"],
     }),
-    isMIN ? minify() : null
-  ]
+    isMIN ? minify() : null,
+  ],
 };
 const outputOptions = {
-  file: isRumtime ? "build/pgd-custom-element.js" : "build/index.js",
+  file: "build/index.js",
   format: "iife",
-  sourcemap: true
+  sourcemap: true,
 };
 async function build() {
   removeBuildFolder();
@@ -132,8 +141,8 @@ if (arg.indexOf("--watch") > -1) {
     ...inputOptions,
     output: [outputOptions],
     watch: {
-      exclude: ["node_modules/**", "libs/**"]
-    }
+      exclude: ["node_modules/**", "libs/**"],
+    },
   };
   const watcher = rollup.watch(watchOptions);
   const Events = {
@@ -142,7 +151,7 @@ if (arg.indexOf("--watch") > -1) {
     bundleEnd: "BUNDLE_END",
     end: "END",
     error: "ERROR",
-    fatal: "FATAL"
+    fatal: "FATAL",
   };
   watcher.on("event", (event, ...data) => {
     switch (event.code) {

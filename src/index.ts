@@ -1,2 +1,2 @@
-// import "./demo.element";
+import "regenerator-runtime";
 import "./qr-code.element";

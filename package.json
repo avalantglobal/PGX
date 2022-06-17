@@ -76,5 +76,6 @@
     "rollup-plugin-typescript": "^1.0.0",
     "serve-handler": "^5.0.8",
     "typescript": "^3.3.3"
-  }
+  },
+  "buildNo": "20220617.1112"
 }

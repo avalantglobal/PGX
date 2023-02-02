@@ -65,7 +65,7 @@
     "chart.js": "^2.8.0",
     "commander": "^2.20.0",
     "commonjs": "^0.0.1",
-    "jszip": "^3.2.1",
+    "jszip": "^3.8.0",
     "lit-element": "^2.0.0-rc.2",
     "polymer-webpack-loader": "^2.0.3",
     "qr-code-with-logo": "^1.1.0",
